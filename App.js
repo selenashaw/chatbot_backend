@@ -3,8 +3,7 @@ var app = express();
 
 // Routes
 const logRoute = require('./routes/logRoutes');
-const surveyRoute = require('./routes/surveyRoutes');
-const testSurveyRoute = require('./routes/testSurveyRoutes');
+const missingRoute = require('./routes/missingRoutes');
 
 // Body parser
 app.use(express.json());
@@ -12,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize Routes
 app.use('/log', logRoute);
-app.use('/survey', surveyRoute);
-// app.use('/testSurvey', testSurveyRoute);
+app.use('/missing', missingRoute);
 
 module.exports=app;

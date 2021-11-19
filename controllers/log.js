@@ -4,11 +4,7 @@ const log = require("../models/Log");
 exports.createLog = async (req, res) => {
   try {
     await log.create({
-      semester: req.body.semester,
-      class: req.body.class,
-      assignment: req.body.assignment,
-      part: req.body.part,
-      questions: req.body.questions
+      queries: req.body.queries
     })
     .then(result=>{
       res.status(200).send(result);
@@ -47,108 +43,19 @@ exports.getLogById = async (req, res) => {
   }
 }
 
-// retrieves all of the logs from the database for a given class
-exports.getClassLogs = async (req, res) => {
-  try{
-    await log.find({class: req.body.class})
-    .then(result => {
-      res.status(200).send(result)
-    })
-  }
-  catch (err){
-    console.log(err);
-    res.sendStatus(500);
-  }
-};
-
-// retrieves all the logs from the database for a given class and semester
-exports.getSemesterClassLogs = async (req, res) => {
-  try{
-    await log.find({
-      semester: req.body.semester, 
-      class: req.body.class
-    })
-    .then(result => {
-      res.status(200).send(result);
-    });
-  }
-  catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-};
-
-// retrieves all the logs from the database for a given assignment, class, and semester
-exports.getAssignmentSemesterLogs = async (req, res) => {
+// retrieves all the logs for a certain query format
+exports.getLogsByQuery = async (req,res) => {
   try {
     await log.find({
-      semester: req.body.semester,
-      class: req.body.class,
-      assignment: req.body.assignment
-    })
-    .then(result => {
-      res.status(200).send(result);
-    });
-  }
-  catch (err){
-    console.log(err);
-    res.sendStatus(500);
-  }
-};
-
-exports.getAssignmentPartLogs = async (req, res) => {
-  try {
-    await log.find({
-      semester: req.body.semester,
-      class: req.body.class,
-      assignment: req.body.assignment,
-      part: req.body.part
-    })
-    .then(result => {
-      res.status(200).send(result);
-    });
-  }
-  catch (err){
-    console.log(err);
-    res.sendStatus(500);
-  }
-};
-
-exports.getLogsByQuestion = async (req,res) => {
-  try {
-    if (req.body.err_or_tf == "tf") {
-      await log.find({
-        class: req.body.class,
-        assignment: req.body.assignment,
-        part: req.body.part,
-        questions: { 
-          $elemMatch: { 
-            err_or_tf: req.body.err_or_tf,
-            tf_test: req.body.tf_test
-          }
+      queries: { 
+        $elemMatch: { 
+          category: req.body.category,
         }
-      })
-      .then(result => {
-        res.status(200).send(result);
-      });
-    }
-    else {
-      // Do i need class and stuff for this?
-      await log.find({
-        class: req.body.class,
-        assignment: req.body.assignment,
-        part: req.body.part,
-        questions: { 
-          $elemMatch: { 
-            err_or_tf: req.body.err_or_tf,
-            question: req.body.question
-          }
-        }
-      })
-      .then(result => {
-        res.status(200).send(result);
-      });
-    }
+      }
+    })
+    .then(result => {
+      res.status(200).send(result);
+    });
   }
   catch (err){
     console.log(err);

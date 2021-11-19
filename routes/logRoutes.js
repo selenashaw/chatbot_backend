@@ -8,15 +8,7 @@ const router = express.Router();
 
 router.get("/", Log.getAllLogs);
 
-router.get("/class", Log.getClassLogs);
-
-router.get("/semester", Log.getSemesterClassLogs);
-
-router.get("/assignment", Log.getAssignmentSemesterLogs);
-
-router.get("/part", Log.getAssignmentPartLogs);
-
-router.get("/question", Log.getLogsByQuestion);
+router.get("/query", Log.getLogsByQuery);
 
 router.get("/:id", Log.getLogById);
 
