@@ -7,7 +7,6 @@ const logSchema = new Schema({
     err_msg: String,
     category: String,
     helful: Boolean,
-    details: String
   }]
 });
 
