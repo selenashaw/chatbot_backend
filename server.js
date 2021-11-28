@@ -15,3 +15,5 @@ mongoose.connect(uri).then(() => {
     console.log("App listening on port 8000");
   });
 });
+
+module.exports={mongoose};
