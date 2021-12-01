@@ -6,7 +6,7 @@ const logSchema = new Schema({
   queries: [{
     err_msg: String,
     category: String,
-    helpful: Boolean,
+    helpful: String,
   }]
 });
 
